@@ -3,9 +3,9 @@ import java.util.Deque;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
+//import com.sun.org.apache.bcel.internal.generic.NEW;
 
-public class ProducerConsuer2{
+public class ProducerConsumer2{
     public static void main(String[] args){
           Bucket bucket=new Bucket(5, 150);
           Producer pro = new Producer(bucket);
