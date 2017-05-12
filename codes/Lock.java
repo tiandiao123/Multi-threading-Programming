@@ -1,5 +1,4 @@
 import java.util.*;
-
 public class Lock{
      public static void main(String[] args){
                 ThreadDemo1 thread1 = new ThreadDemo1();
@@ -9,14 +8,15 @@ public class Lock{
                 thread2.start();                
 
      }
-
     static Object lock1 = new Object();
     static Object lock2 = new Object();
     static class ThreadDemo1 extends Thread {
               public void run(){
                      synchronized(lock1){
                          try{
-                             Thread.sleep(100);
+                             
+                             System.out.println("curently, lock1 is locked");
+                             Thread.sleep(3000);
                          }catch (InterruptedException ie){
                              ie.printStackTrace();
                          }
@@ -27,8 +27,6 @@ public class Lock{
                      }
               }
     }
-
-
     static class ThreadDemo2 extends Thread{
           public void run() {
              synchronized (lock2){
@@ -39,10 +37,10 @@ public class Lock{
                 }
              }
 
+             System.out.println("thread2 waiting for lock1");
              synchronized (lock1){
                    System.out.print("ThreadDemo 2 !"); 
             }
           }
     }
- 
 }
