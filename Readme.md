@@ -117,4 +117,30 @@ public class Lock{
 }
 ```
 
-Producer and Consumer: 
+Producer and Consumer Case Studies: [detailed code demo](https://github.com/tiandiao123/Multi-threading-Programming/blob/master/codes/ProducerConsumer.java) 
+Here is a code demo:
+```
+    public static void main(String[] args) {
+         Bucket bucket =new Bucket(20, 200);    
+         PutExcuter putExcuter = new PutExcuter(bucket);
+         GetExecuter getExecuter = new GetExecuter(bucket, 6);
+         List<Thread> putThread = new ArrayList<>();
+         
+         for(int i = 0;i < 2; i++){
+             putThread.add(new Thread(putExcuter));
+         }
+
+         List<Thread> getThread = new ArrayList<>();
+         for(int i=0;i<3;i++){
+             getThread.add(new Thread(getExecuter));
+         }
+
+         for(Thread thread: putThread){
+             thread.start();
+         }
+
+         for(Thread thread : getThread){
+             thread.start();
+         }
+    }
+```
