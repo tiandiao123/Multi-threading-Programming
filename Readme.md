@@ -118,8 +118,8 @@ public class Lock{
 ```
 
 Producer and Consumer Case Studies: [detailed code demo](https://github.com/tiandiao123/Multi-threading-Programming/blob/master/codes/ProducerConsumer.java) 
-Here is a code demo:
 
+Here is a code demo:
 ```
     public static void main(String[] args) {
          Bucket bucket =new Bucket(20, 200);    
