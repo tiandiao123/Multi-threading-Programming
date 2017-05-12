@@ -6,11 +6,11 @@ public class SleepExample{
         MyThread thread1=new MyThread();
         MyThread thread2=new MyThread();
         thread1.start();
-        // try {
-        //     thread1.join();
-        // }catch(InterruptedException ie){
-        //     ie.printStackTrace();
-        // }
+        try {
+            thread1.join();
+        }catch(InterruptedException ie){
+            ie.printStackTrace();
+        }
 
         thread2.start();
 
