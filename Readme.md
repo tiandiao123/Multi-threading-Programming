@@ -33,4 +33,40 @@ class MyClass2 implements Runnable{
     }
 }
 ```
+Join() function is used to wait for current running assigned thread to be ended, then continue to run the other threads! Also, the sleep() function is used to make current thread to be asleep for the assigned time until the assigned time has passed. Here is a demo:
+```
+import java.util.*;
 
+public class SleepExample{
+   public static void main(String[] args){
+
+        MyThread thread1=new MyThread();
+        MyThread thread2=new MyThread();
+        thread1.start();
+        try {
+            thread1.join();
+        }catch(InterruptedException ie){
+            ie.printStackTrace();
+        }
+
+        thread2.start();
+
+   }
+
+   public static class MyThread extends Thread{
+       @Override
+       public void run(){
+
+          for(int i=0;i<10;i++){
+                System.out.println(i);
+                try{
+                    Thread.sleep(200);
+                }catch (InterruptedException ie){
+                    ie.printStackTrace();
+                }
+          }
+       }
+   }
+
+}
+```  
