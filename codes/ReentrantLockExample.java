@@ -7,7 +7,8 @@ import java.util.concurrent.locks.ReentrantLock;
  
 /**
  * @author Crunchify.com
- * These codes are from https://crunchify.com/what-is-lock-unlock-reentrantlock-trylock-and-how-its-different-from-synchronized-block-in-java/
+ * These codes are from https://crunchify.com/what-is-lock-unlock-reentrantlock-trylock-and-how-its-different-from-synchronized-\
+ * block-in-java/
  *
  */
  
@@ -36,6 +37,7 @@ public class ReentrantLockExample {
 				try {
 					Thread.sleep(random.nextInt(5));
 				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 				companyName2.crunchifyTalking(companyName1);
 			}

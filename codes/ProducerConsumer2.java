@@ -12,8 +12,8 @@ public class ProducerConsumer2{
           Consumer con = new Consumer(bucket);
           new Thread(pro).start();
           new Thread(pro).start();
-          new Thread(pro).start();
-          new Thread(pro).start();
+          new Thread(con).start();
+          new Thread(con).start();
     } 
     static class Producer implements Runnable{
         private Bucket bucket;
