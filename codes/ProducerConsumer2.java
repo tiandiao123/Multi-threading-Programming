@@ -43,9 +43,9 @@ public class ProducerConsumer2{
     }
 
     static class Bucket{
-        private Lock lock1 = new ReentrantLock();
+        private final ReentrantLock lock1 = new ReentrantLock();
         private Condition condition1 = lock1.newCondition();
-        private Condition condition2 = lock2.newCondition();
+        private Condition condition2 = lock1.newCondition();
         
         private Deque<String> bucket;
         private int size;
@@ -60,7 +60,7 @@ public class ProducerConsumer2{
        public void set(String val){
            lock1.lock();
            try{
-               while(bucket.size()==this.size()){
+               while(bucket.size()==this.size){
                    condition1.await();
                }
                this.bucket.addLast(val);
