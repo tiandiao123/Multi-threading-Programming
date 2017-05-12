@@ -1,7 +1,7 @@
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.HeaderTokenizer.Token;
+//import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.HeaderTokenizer.Token;
 
 class Bucket{
      private BlockingQueue<Token> que;
@@ -10,11 +10,10 @@ class Bucket{
       this.que=new ArrayBlockingQueue<Token>(size);
       this.rate=rate;
   }    
-  
   public void putToken(Token token){
       try {
           Thread.sleep(this.rate);
-          que.take(token);
+          que.put(token);
       } catch (InterruptedException ie){
           ie.printStackTrace();
       }

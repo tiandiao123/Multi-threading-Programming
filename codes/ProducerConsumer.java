@@ -1,5 +1,7 @@
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 public class ProducerConsumer{
     public static void main(String[] args) {
          Bucket bucket =new Bucket(20, 200);    
@@ -35,7 +37,7 @@ public class ProducerConsumer{
         public void run(){
             int counter = 0;
             while(counter < 10){
-                bucket.putToken(new Token(countrt,Thread.currentThread().getName()));
+                bucket.putToken(new Token(counter,Thread.currentThread().getName()));
                 System.out.println("PUT: "+Thread.currentThread().getName()+ " " + counter);
                 counter++;
             }
@@ -53,11 +55,51 @@ public class ProducerConsumer{
         public void run(){
             int counter=0;
             while(counter < this.num){
-                System.out.println("Get: "+ Thread.currentThread().getName()+" From "+bucket,getToken());
+                System.out.println("Get: "+ Thread.currentThread().getName()+" From "+bucket.getToken());
                 counter++;
             }
         }
     }
-
-
 }
+
+
+// class Token{
+//      private int val;
+//      private String name;
+//      public Token(int val,String name){
+//      	this.val=val;
+//      	this.name=name;
+//      }
+//      @override
+//      public String toString(){
+//      	return this.name + " " +this.val;
+//      }
+// }   
+
+
+// class Bucket{
+//      private BlockingQueue<Token> que;
+//      private int rate;
+//   public Bucket(int size,int rate){
+//       this.que=new ArrayBlockingQueue<Token>(size);
+//       this.rate=rate;
+//   }    
+//   public void putToken(Token token){
+//       try {
+//           Thread.sleep(this.rate);
+//           que.take(token);
+//       } catch (InterruptedException ie){
+//           ie.printStackTrace();
+//       }
+//   }
+
+//   public Token getToken(){
+//       try{
+//           Thread.sleep(100);
+//           return que.take();
+//       }catch (InterruptedException ie){
+//           ie.printStackTrace();
+//           return null;
+//       }
+//   }
+// }
