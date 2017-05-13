@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
  * This codes are referenced from Crunchify,com
  */
  
-public class CrunchifySemaphoreMutexTutorial {
+public class SemaphoreExample {
     static Object crunchifyLock = new Object();
     static LinkedList<String> crunchifyList = new LinkedList<String>();
     
@@ -15,6 +15,14 @@ public class CrunchifySemaphoreMutexTutorial {
     // Each release adds a permit, potentially releasing a blocking acquirer.
     static Semaphore semaphore = new Semaphore(0);
     static Semaphore mutex = new Semaphore(1);
+
+
+    public static void main(String[] args) {
+        new CrunchifyProducer().start();
+        new CrunchifyConsumer("Crunchify").start();
+        new CrunchifyConsumer("Google").start();
+        new CrunchifyConsumer("Yahoo").start();
+    }
     
     // I'll producing new Integer every time
     static class CrunchifyProducer extends Thread {
@@ -74,10 +82,4 @@ public class CrunchifySemaphoreMutexTutorial {
         }
     }
     
-    public static void main(String[] args) {
-        new CrunchifyProducer().start();
-        new CrunchifyConsumer("Crunchify").start();
-        new CrunchifyConsumer("Google").start();
-        new CrunchifyConsumer("Yahoo").start();
-    }
 }
