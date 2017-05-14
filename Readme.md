@@ -159,4 +159,18 @@ private final Semaphore semaphore;
            }
 ```
 
-Also, we are going to use Java multi-threading programming to create java sockets:[codes are here]()
+Also, we are going to use Java multi-threading programming to create java sockets:[codes are here](https://github.com/tiandiao123/Multi-threading-Programming/tree/master/Server%20and%20Client):
+
+Here is demo how to create a socket in Java:
+```
+ServerSocket serverSocket = null; 
+
+    try { 
+         serverSocket = new ServerSocket(8005); 
+        } 
+    catch (IOException e) 
+        { 
+         System.err.println("Could not listen on port: 10007."); 
+         System.exit(1); 
+        } 
+```
