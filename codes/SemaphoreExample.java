@@ -1,16 +1,19 @@
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 import java.util.Date;
+
+//the codes are based on the tutorial:http://howtodoinjava.com/core-java/multi-threading/binary-semaphore-tutorial-and-example/
+
 public class SemaphoreExample
 {
    public static void main(String[] args){
       PrinterQueue printerQueue = new PrinterQueue();
-      Thread thread[] = new Thread[10];
-      for (int i = 0; i < 10; i++)
+      Thread thread[] = new Thread[100];
+      for (int i = 0; i < 100; i++)
       {
          thread[i] = new Thread(new PrintingJob(printerQueue), "Thread " + i);
       }
-      for (int i = 0; i < 10; i++)
+      for (int i = 0; i < 100; i++)
       {
          thread[i].start();
       }
@@ -43,13 +46,12 @@ public class SemaphoreExample
            public void printJob(Object document){
            try{
               semaphore.acquire();
-              Long duration = (long) (Math.random() * 10000);
-              System.out.println(Thread.currentThread().getName() + ": PrintQueue: Printing a Job during " + (duration / 1000) + " seconds :: Time - " + new Date());
-              Thread.sleep(duration);
-            } catch (InterruptedException e){
-              e.printStackTrace();
+              System.out.println(Thread.currentThread().getName() + ": PrintQueue: Printing a Job during " + ((float)500 / 1000) + " seconds :: Time - " + new Date());
+              Thread.sleep(500);
+            } catch (InterruptedException ie){
+              ie.printStackTrace();
             } finally{
-             System.out.printf("%s: The document has been printed\n", Thread.currentThread().getName());
+             System.out.printf("The printer has finished printed : %s\n", Thread.currentThread().getName());
              semaphore.release();
             }
        }
