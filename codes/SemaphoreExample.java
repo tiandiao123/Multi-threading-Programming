@@ -1,85 +1,57 @@
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
- 
-/**
- * @author Crunchify.com
- * This codes are referenced from Crunchify,com
- */
- 
-public class SemaphoreExample {
-    static Object crunchifyLock = new Object();
-    static LinkedList<String> crunchifyList = new LinkedList<String>();
-    
-    // Semaphore maintains a set of permits.
-    // Each acquire blocks if necessary until a permit is available, and then takes it.
-    // Each release adds a permit, potentially releasing a blocking acquirer.
-    static Semaphore semaphore = new Semaphore(0);
-    static Semaphore mutex = new Semaphore(1);
+import java.util.Date;
+public class SemaphoreExample
+{
+   public static void main(String[] args){
+      PrinterQueue printerQueue = new PrinterQueue();
+      Thread thread[] = new Thread[10];
+      for (int i = 0; i < 10; i++)
+      {
+         thread[i] = new Thread(new PrintingJob(printerQueue), "Thread " + i);
+      }
+      for (int i = 0; i < 10; i++)
+      {
+         thread[i].start();
+      }
+   }
 
+   static class PrintingJob implements Runnable
+    {
+       private PrinterQueue printerQueue;
+     
+       public PrintingJob(PrinterQueue printerQueue)
+       {
+          this.printerQueue = printerQueue;
+       }
+     
+       @Override
+       public void run()
+       {
+          System.out.printf("%s: Going to print a document\n", Thread.currentThread().getName());
+          printerQueue.printJob(new Object());
+       }
+    }
 
-    public static void main(String[] args) {
-        new CrunchifyProducer().start();
-        new CrunchifyConsumer("Crunchify").start();
-        new CrunchifyConsumer("Google").start();
-        new CrunchifyConsumer("Yahoo").start();
-    }
-    
-    // I'll producing new Integer every time
-    static class CrunchifyProducer extends Thread {
-        public void run() {
-            
-            int counter = 1;
-            try {
-                while (true) {
-                    String threadName = Thread.currentThread().getName() + counter++;
-                    
-                    mutex.acquire();
-                    crunchifyList.add(threadName);
-                    System.out.println("Producer is prdoucing new value: " + threadName);
-                    mutex.release();
-                    
-                    // release lock
-                    semaphore.release();
-                    Thread.sleep(500);
-                }
-            } catch (Exception x) {
-                x.printStackTrace();
+     static class PrinterQueue{
+           private final Semaphore semaphore;
+ 
+           public PrinterQueue(){
+              semaphore = new Semaphore(1);
+           }
+   
+           public void printJob(Object document){
+           try{
+              semaphore.acquire();
+              Long duration = (long) (Math.random() * 10000);
+              System.out.println(Thread.currentThread().getName() + ": PrintQueue: Printing a Job during " + (duration / 1000) + " seconds :: Time - " + new Date());
+              Thread.sleep(duration);
+            } catch (InterruptedException e){
+              e.printStackTrace();
+            } finally{
+             System.out.printf("%s: The document has been printed\n", Thread.currentThread().getName());
+             semaphore.release();
             }
-        }
-    }
-    
-    // I'll be consuming Integer every stime
-    static class CrunchifyConsumer extends Thread {
-        String consumerName;
-        
-        public CrunchifyConsumer(String name) {
-            this.consumerName = name;
-        }
-        
-        public void run() {
-            try {
-                
-                while (true) {
-                    
-                    // acquire lock. Acquires the given number of permits from this semaphore, blocking until all are
-                    // available
-                    // process stops here until producer releases the lock
-                    semaphore.acquire();
-                    
-                    // Acquires a permit from this semaphore, blocking until one is available
-                    mutex.acquire();
-                    String result = "";
-                    for (String value : crunchifyList) {
-                        result = value + ",";
-                    }
-                    System.out.println(consumerName + " consumes value: " + result + "crunchifyList.size(): "
-                            + crunchifyList.size() + "\n");
-                    mutex.release();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
+       }
+     }
 }

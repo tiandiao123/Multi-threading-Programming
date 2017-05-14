@@ -148,8 +148,15 @@ Here is a code demo:
 
 There is another coding demo about producer and consumer case study in codes file:[here](https://github.com/tiandiao123/Multi-threading-Programming/blob/master/codes/ProducerConsumer2.java)
 
-### Part II: advanced topics in semaphore and other industrial usages of Java 8
+### Part II: advanced topics in semaphore and other advanced topics in Multi-threading programming in Java
 
-What is Semaphore, here is a [tutorial](https://en.wikipedia.org/wiki/Semaphore_(programming)). Basically, a semaphore is a variable or abstract data type used to control access to a common resource by multiple processes in a concurrent system such as a multiprogramming operating system. Also, producer–consumer problem is a special case of semaphore. 
+What is Semaphore, here is a [tutorial](https://en.wikipedia.org/wiki/Semaphore_(programming)). Basically, a semaphore is a variable or abstract data type used to control access to a common resource by multiple processes in a concurrent system such as a multiprogramming operating system. Also, producer–consumer problem is a special case of semaphore. Codes demo:
+```
+private final Semaphore semaphore;
+ 
+           public PrinterQueue(){
+              semaphore = new Semaphore(1);
+           }
+```
 
 Also, we are going to use Java multi-threading programming to create java sockets:[codes are here]()
