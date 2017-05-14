@@ -174,3 +174,14 @@ ServerSocket serverSocket = null;
          System.exit(1); 
         } 
 ```
+
+Here is a simple instruction how to run EchoServer.java file and EchoClient.java file:
+Firstly, compile the java file above, then type:
+```
+java EchoServer
+```
+firstly, then type:
+```
+java EchoClient
+```
+to run the client side. After that type some strings such as "hello\n" in the client terminal, then you will see how messages transferred between two sides! 
